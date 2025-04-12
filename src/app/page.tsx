@@ -17,7 +17,7 @@ export default function Home() {
       href: '/futures',
     },
     {
-      title: 'TCalculator',
+      title: 'T交易收益计算',
       description: '计算 A股做T交易的成本和收益',
       href: '/TCalculator',
     },
