@@ -72,11 +72,9 @@ export async function GET() {
       }));
 
     return NextResponse.json(formattedNews);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('EastMoney News API error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
+        message: error instanceof Error ? error.message : 'Unknown error',
     });
     return NextResponse.json(
       { error: '无法加载东方财富快讯' },
