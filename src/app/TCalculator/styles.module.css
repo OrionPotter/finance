@@ -1,0 +1,373 @@
+.container {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #f5f5f5; /* iOS浅灰背景 */
+    min-height: 100vh;
+  }
+  
+  .title {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .formCard {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+  }
+  
+  .formCardTitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000;
+    flex: 1;
+  }
+  
+  .feeTipButton {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #8e8e93;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #8e8e93;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .feeTipButton:hover {
+    background-color: #f0f0f2;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  
+  .formGroup label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .formGroup input {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #f0f0f2;
+    font-size: 1rem;
+    color: #000;
+  }
+  
+  .formGroup input:focus {
+    outline: none;
+    background-color: #e8e8ea;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    justify-content: center;
+  }
+  
+  .calculateButton,
+  .resetButton,
+  .historyButton {
+    flex: 1;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+  }
+  
+  .calculateButton {
+    background-color: #007aff; /* iOS蓝色 */
+    color: #fff;
+  }
+  
+  .calculateButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .calculateButton:active {
+    transform: scale(0.98);
+  }
+  
+  .resetButton {
+    background-color: #ff3b30; /* iOS红色 */
+    color: #fff;
+  }
+  
+  .resetButton:hover {
+    background-color: #cc2520;
+  }
+  
+  .resetButton:active {
+    transform: scale(0.98);
+  }
+  
+  .result {
+    margin-top: 1.5rem;
+  }
+  
+  .resultCard {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .resultCardTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .resultSection {
+    margin-bottom: 1rem;
+  }
+  
+  .resultSection h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.75rem;
+    padding-left: 0.5rem;
+  }
+  
+  .resultItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 1rem;
+  }
+  
+  .resultItem:last-child {
+    border-bottom: none;
+  }
+  
+  .resultItem span:first-child {
+    color: #333;
+  }
+  
+  .resultItem span:last-child {
+    color: #000;
+    font-weight: 500;
+  }
+  
+  .error {
+    color: #ff3b30;
+    text-align: center;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .historyToggle {
+    text-align: center;
+    margin: 1.5rem 0;
+  }
+  
+  .historyButton {
+    background-color: #8e8e93; /* iOS灰色 */
+    color: #fff;
+  }
+  
+  .historyButton:hover {
+    background-color: #787880;
+  }
+  
+  .historyButton:active {
+    transform: scale(0.98);
+  }
+  
+  .history {
+    margin-top: 1rem;
+  }
+  
+  .historyTitle {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1rem;
+  }
+  
+  .historyEmpty {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  
+  .historyList {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .historyCard {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .historyCard p {
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+  }
+  
+  .historyCard p strong {
+    color: #333;
+  }
+  
+  /* 模态窗口样式 */
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* 半透明遮罩 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .modalTitle {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .modalContent {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .modalContent h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #000;
+    margin: 1rem 0 0.5rem;
+  }
+  
+  .modalContent p {
+    margin: 0.5rem 0;
+  }
+  
+  .modalContent ul {
+    list-style: disc;
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .modalContent li {
+    margin: 0.3rem 0;
+  }
+  
+  .modalCloseButton {
+    width: 100%;
+    padding: 0.85rem;
+    background-color: #007aff;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.2s, transform 0.1s;
+  }
+  
+  .modalCloseButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .modalCloseButton:active {
+    transform: scale(0.98);
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 0.5rem;
+    }
+  
+    .buttonGroup {
+      flex-direction: column;
+    }
+  
+    .calculateButton,
+    .resetButton,
+    .historyButton {
+      width: 100%;
+    }
+  
+    .modal {
+      width: 95%;
+      padding: 1rem;
+    }
+  }
