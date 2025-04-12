@@ -24,11 +24,20 @@ export default function News() {
         const response = await axios.get<NewsItem[]>('/api/eastmoney-news');
         setNewsItems(response.data);
         setError(null);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.error || '无法加载快讯，请稍后重试'
-        );
-        console.error('Fetch news error:', err);
+      } catch (err: unknown) {
+        let errorMessage = '无法加载快讯，请稍后重试';
+      
+      // 检查是否是 AxiosError
+      if (axios.isAxiosError(err)) {
+        errorMessage = err.response?.data?.error || errorMessage;
+      } 
+      // 检查是否是普通 Error
+      else if (err instanceof Error) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
+      console.error('Fetch news error:', err);
       } finally {
         setLoading(false);
       }
