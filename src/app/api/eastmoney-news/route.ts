@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import axios from 'axios';
-import { format } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
 
 // 定义东财快讯原始类型
 interface EastMoneyNewsItem {
@@ -62,7 +62,11 @@ export async function GET() {
     const formattedNews: NewsItem[] = response.data.data.fastNewsList
       .slice(0, 10)
       .map((item) => ({
-        time: format(new Date(item.showTime), 'yyyy-MM-dd HH:mm'),
+        time: formatInTimeZone(
+          new Date(item.showTime),
+          'Asia/Shanghai',
+          'yyyy-MM-dd HH:mm'
+        ),
         title: item.title || '无标题',
         summary: item.summary || '暂无摘要',
       }));
