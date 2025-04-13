@@ -1,0 +1,357 @@
+.main {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #e6efff 0%, #b3c7ff 100%);
+    position: relative;
+    overflow: hidden;
+    padding: 80px 0 2.5rem; /* 顶部避开导航栏 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .container {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 0 2rem;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1c2526;
+    text-align: center;
+    margin: 24px 0 16px;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-out forwards;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .filters {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+  
+  .filterLabel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    color: #1c2526;
+  }
+  
+  .input {
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #1c2526;
+    background: rgba(255, 255, 255, 0.95);
+    width: 160px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #007aff;
+  }
+  
+  .toggleButton {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(45deg, #007aff, #00c6ff);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .toggleButton:hover {
+    transform: scale(1.05);
+  }
+  
+  .eventList {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  
+  .eventCard {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 16px;
+    padding: 1rem;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: fadeIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .eventCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    background: linear-gradient(45deg, rgba(0, 122, 255, 0.2), rgba(0, 198, 255, 0.2)) border-box;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .eventCard:hover::before {
+    opacity: 1;
+  }
+  
+  .eventCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+  }
+  
+  .eventTime {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    min-width: 100px;
+  }
+  
+  .eventName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    flex: 1;
+    text-align: left;
+  }
+  
+  .eventCountry {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4a4a4a;
+    min-width: 80px;
+  }
+  
+  .eventImportance {
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 60px;
+    text-align: right;
+  }
+  
+  .eventImportance.high {
+    color: #e02424;
+  }
+  
+  .eventImportance.medium {
+    color: #ff9500;
+  }
+  
+  .eventImportance.low {
+    color: #059669;
+  }
+  
+  .eventDetails {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+  }
+  
+  .eventDetail {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #666;
+  }
+  
+  .loading,
+  .error,
+  .empty {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666;
+    text-align: center;
+    margin: 3rem 0;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+  }
+  
+  .backgroundOrb {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0, 122, 255, 0.3), transparent 70%);
+    border-radius: 50%;
+    top: -200px;
+    left: -200px;
+    z-index: 0;
+    animation: pulse 12s infinite ease-in-out;
+    will-change: transform, opacity;
+  }
+  
+  .backgroundOrbRight {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(0, 198, 255, 0.25), transparent 70%);
+    border-radius: 50%;
+    bottom: -150px;
+    right: -150px;
+    z-index: 0;
+    animation: pulse 14s infinite ease-in-out;
+    will-change: transform, opacity;
+  }
+  
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.2);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.5;
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .main {
+      padding: 70px 0 2rem;
+    }
+  
+    .title {
+      font-size: 24px;
+    }
+  
+    .filters {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+  
+    .input,
+    .toggleButton {
+      width: 100%;
+      max-width: 300px;
+    }
+  
+    .eventList {
+      grid-template-columns: 1fr;
+    }
+  
+    .eventCard {
+      padding: 1rem;
+    }
+  
+    .eventName {
+      font-size: 1rem;
+    }
+  
+    .eventTime,
+    .eventCountry,
+    .eventImportance,
+    .eventDetail {
+      font-size: 0.95rem;
+      min-width: 50px;
+    }
+  
+    .backgroundOrb {
+      width: 350px;
+      height: 350px;
+      top: -150px;
+      left: -150px;
+    }
+  
+    .backgroundOrbRight {
+      width: 250px;
+      height: 250px;
+      bottom: -100px;
+      right: -100px;
+    }
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 0 1rem;
+    }
+  
+    .title {
+      font-size: 20px;
+    }
+  
+    .eventCard {
+      padding: 0.75rem;
+      border-radius: 12px;
+    }
+  
+    .eventName {
+      font-size: 0.95rem;
+    }
+  
+    .eventTime,
+    .eventCountry,
+    .eventImportance,
+    .eventDetail {
+      font-size: 0.9rem;
+      min-width: 40px;
+    }
+  
+    .loading,
+    .error,
+    .empty {
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+    }
+  
+    .backgroundOrb {
+      width: 250px;
+      height: 250px;
+      top: -100px;
+      left: -100px;
+    }
+  
+    .backgroundOrbRight {
+      width: 200px;
+      height: 200px;
+      bottom: -80px;
+      right: -80px;
+    }
+  }
