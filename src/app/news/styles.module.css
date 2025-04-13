@@ -20,11 +20,11 @@
   }
   
   .title {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #1a1a1a;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1C2526;
     margin-bottom: 0.75rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: center;

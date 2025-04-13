@@ -53,10 +53,6 @@ export default function News() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <h1 className={styles.title}>
-        7*24小时时讯{' '}
-        </h1>
-
         {loading && <p className={styles.loading}>加载中...</p>}
         {error && <p className={styles.error}>{error}</p>}
 

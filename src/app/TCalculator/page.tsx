@@ -207,17 +207,6 @@ export default function StockCalculator() {
             </button>
           </div>
           <div className={styles.formGroup}>
-            <label htmlFor="initialShares">持仓股数</label>
-            <input
-              type="number"
-              id="initialShares"
-              name="initialShares"
-              value={formData.initialShares}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className={styles.formGroup}>
             <label htmlFor="initialCost">持仓成本</label>
             <input
               type="number"
@@ -226,6 +215,17 @@ export default function StockCalculator() {
               value={formData.initialCost}
               onChange={handleChange}
               step="0.01"
+              required
+            />
+          </div>
+          <div className={styles.formGroup}>
+            <label htmlFor="initialShares">持仓股数</label>
+            <input
+              type="number"
+              id="initialShares"
+              name="initialShares"
+              value={formData.initialShares}
+              onChange={handleChange}
               required
             />
           </div>

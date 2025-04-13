@@ -3,7 +3,10 @@
     background: linear-gradient(145deg, #e6efff 0%, #b3c7ff 100%);
     position: relative;
     overflow: hidden;
-    padding: 2rem 0;
+    padding: 2.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
   }
   
   .container {
@@ -11,127 +14,174 @@
     z-index: 1;
     text-align: center;
     padding: 0 2rem;
-    max-width: 1400px;
+    max-width: 1280px;
+    width: 100%;
     margin: 0 auto;
   }
   
   .title {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+    font-size: 28px; /* iOS 大标题，桌面 28px，手机稍小 */
+    font-weight: 700; /* Bold，iOS 标题常用 */
+    color: #1C2526; /* iOS 深灰，接近黑 */
+    text-align: center;
+    margin: 24px 0 16px; /* 宽松间距，上下留白 */
+    letter-spacing: -0.02em; /* 微调字距，iOS 风格 */
+    opacity: 0; /* 初始透明 */
+    animation: fadeIn 0.5s ease-out forwards; /* 淡入动画 */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* 微妙阴影 */
   }
   
   
-  .subtitle {
-    font-size: 1.3rem;
+  .titleEn {
+    font-size: 1.6rem;
+    font-weight: 400;
     color: #4a4a4a;
-    margin-bottom: 3rem;
+    margin-left: 0.75rem;
+    opacity: 0.85;
   }
   
-  .futuresGrid {
+  .futuresList {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
   }
   
   .futuresCard {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 16px;
     padding: 1rem;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: calc(var(--index) * 0.1s);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     display: flex;
     align-items: center;
     gap: 1rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    animation: fadeIn 0.6s ease-out forwards;
+    animation-delay: calc(var(--index) * 0.1s);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .futuresCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 16px;
+    border: 1px solid transparent;
+    background: linear-gradient(45deg, rgba(0, 122, 255, 0.2), rgba(0, 198, 255, 0.2)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .futuresCard:hover::before {
+    opacity: 1;
   }
   
   .futuresCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   }
   
-  
-  .cardTitle {
+  .futuresName {
     font-size: 1.1rem;
     font-weight: 600;
     color: #1a1a1a;
-    white-space: nowrap;
+    flex: 1;
     text-align: left;
   }
   
-  .cardPrice {
-    font-size: 1.2rem;
+  .futuresPrice {
+    font-size: 1.1rem;
     font-weight: 600;
     color: #1a1a1a;
     min-width: 80px;
-    text-align: center;
-    animation: pulsePrice 0.3s ease;
+    text-align: right;
   }
   
-  .cardChange {
+  .futuresChange {
     font-size: 1rem;
     font-weight: 500;
     min-width: 60px;
     text-align: right;
   }
   
-  .positive {
-    color: #00c6ff;
+  .futuresChange.positive {
+    color: #e02424;
   }
   
-  .negative {
-    color: #ff3b30;
+  .futuresChange.negative {
+    color: #059669;
+  }
+  
+  .loading,
+  .error,
+  .empty {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666;
+    text-align: center;
+    margin: 3rem 0;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
   }
   
   .backgroundOrb {
     position: absolute;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(0, 122, 255, 0.25), transparent);
+    width: 450px;
+    height: 450px;
+    background: radial-gradient(circle, rgba(0, 122, 255, 0.3), transparent 70%);
     border-radius: 50%;
-    top: -150px;
-    left: -150px;
+    top: -200px;
+    left: -200px;
     z-index: 0;
-    animation: pulse 10s infinite ease-in-out;
+    animation: pulse 12s infinite ease-in-out;
+    will-change: transform, opacity;
   }
   
   .backgroundOrbRight {
     position: absolute;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(0, 198, 255, 0.2), transparent);
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(0, 198, 255, 0.25), transparent 70%);
     border-radius: 50%;
-    bottom: -100px;
-    right: -100px;
+    bottom: -150px;
+    right: -150px;
     z-index: 0;
-    animation: pulse 12s infinite ease-in-out;
+    animation: pulse 14s infinite ease-in-out;
+    will-change: transform, opacity;
   }
   
   @keyframes pulse {
     0% {
       transform: scale(1);
-      opacity: 0.4;
+      opacity: 0.5;
     }
     50% {
-      transform: scale(1.3);
-      opacity: 0.2;
+      transform: scale(1.2);
+      opacity: 0.3;
     }
     100% {
       transform: scale(1);
-      opacity: 0.4;
+      opacity: 0.5;
     }
   }
   
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(30px);
     }
     to {
       opacity: 1;
@@ -139,53 +189,54 @@
     }
   }
   
-  @keyframes pulsePrice {
-    0% {
-      opacity: 0.7;
-    }
-    50% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0.7;
-    }
-  }
-  
   @media (max-width: 768px) {
+    .main {
+      padding: 2rem 0;
+    }
+  
     .title {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
     }
   
     .titleEn {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
+      margin-left: 0.5rem;
     }
   
-    .subtitle {
-      font-size: 1.1rem;
-    }
-  
-    .futuresGrid {
-      grid-template-columns: 1fr;
+    .futuresList {
+      grid-template-columns: 1fr; /* 单列 */
     }
   
     .futuresCard {
-      padding: 0.8rem;
+      padding: 1rem;
     }
   
-    .cardTitle {
+    .futuresName {
       font-size: 1rem;
     }
   
-    .cardTitleEn {
-      font-size: 0.85rem;
+    .futuresPrice {
+      font-size: 1rem;
+      min-width: 70px;
     }
   
-    .cardPrice {
-      font-size: 1.1rem;
-    }
-  
-    .cardChange {
+    .futuresChange {
       font-size: 0.95rem;
+      min-width: 50px;
+    }
+  
+    .backgroundOrb {
+      width: 350px;
+      height: 350px;
+      top: -150px;
+      left: -150px;
+    }
+  
+    .backgroundOrbRight {
+      width: 250px;
+      height: 250px;
+      bottom: -100px;
+      right: -100px;
     }
   }
   
@@ -194,9 +245,43 @@
       padding: 0 1rem;
     }
   
+    .title {
+      font-size: 2rem;
+    }
+  
+    .titleEn {
+      font-size: 1.1rem;
+    }
+  
+    .futuresCard {
+      padding: 0.75rem;
+      border-radius: 12px;
+    }
+  
+    .futuresName {
+      font-size: 0.95rem;
+    }
+  
+    .futuresPrice {
+      font-size: 0.95rem;
+      min-width: 60px;
+    }
+  
+    .futuresChange {
+      font-size: 0.9rem;
+      min-width: 40px;
+    }
+  
+    .loading,
+    .error,
+    .empty {
+      font-size: 1rem;
+      padding: 0.75rem 1.5rem;
+    }
+  
     .backgroundOrb {
-      width: 300px;
-      height: 300px;
+      width: 250px;
+      height: 250px;
       top: -100px;
       left: -100px;
     }
@@ -204,7 +289,7 @@
     .backgroundOrbRight {
       width: 200px;
       height: 200px;
-      bottom: -50px;
-      right: -50px;
+      bottom: -80px;
+      right: -80px;
     }
   }

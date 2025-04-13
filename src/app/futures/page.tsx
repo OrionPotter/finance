@@ -1,66 +1,40 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import styles from './styles.module.css';
 
-export default function Futures() {
-  // 模拟期货行情数据
-  const [futuresData, setFuturesData] = useState([
-    {
-      name: '纳斯达克100期货',
-      price: 17350.75,
-      change: 0.42,
-    },
-    {
-      name: '标普500期货',
-      price: 5050.20,
-      change: -0.15,
-    },
-    {
-      name: 'VIX波动率指数',
-      price: 37.25,
-      change: 2.85,
-    },
-    {
-      name: '上证50期货',
-      price: 2685.30,
-      change: 1.12,
-    },
-    {
-      name: '10年期国债',
-      price: 4.18,
-      change: -0.03,
-    },
-    {
-      name: '波罗的海BDI指数',
-      price: 1274,
-      change: 5,
-    },
-    {
-      name: '黄金期货',
-      price: 2700,
-      change: 0.85,
-    },
-    {
-      name: '沪深300期货',
-      price: 4000.50,
-      change: -0.25,
-    },
-  ]);
+// 定义期货数据类型（无 time）
+interface FuturesItem {
+  name: string;
+  price: number;
+  change: string;
+}
 
-  // 模拟实时更新
+export default function Futures() {
+  const [futuresItems, setFuturesItems] = useState<FuturesItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFuturesData((prev) =>
-        prev.map((item) => ({
-          ...item,
-          price: item.name.includes('国债')
-            ? Number((item.price + (Math.random() - 0.5) * 0.02).toFixed(2))
-            : Number((item.price + (Math.random() - 0.5) * 10).toFixed(item.name.includes('黄金') ? 0 : 2)),
-          change: Number(((Math.random() - 0.5) * 2).toFixed(2)),
-        }))
-      );
-    }, 5000);
+    const fetchFutures = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get<FuturesItem[]>('/api/futures');
+        setFuturesItems(response.data);
+        setError(null);
+      } catch (err: any) {
+        setError(
+          err.response?.data?.error || '无法加载期货数据，请稍后重试'
+        );
+        console.error('Fetch futures error:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFutures();
+    const interval = setInterval(fetchFutures, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -68,40 +42,44 @@ export default function Futures() {
     <main className={styles.main}>
       <div className={styles.container}>
         <h1 className={styles.title}>
-          期货市场行情 <span className={styles.titleEn}>Futures Market</span>
+          实时期货市场动态{' '}
         </h1>
-        <p className={styles.subtitle}>实时追踪A股与美股关键指数</p>
 
-        <div className={styles.futuresGrid}>
-          {futuresData.map((item, index) => (
-            <div
-              key={index}
-              className={styles.futuresCard}
-              style={{ '--index': index } as React.CSSProperties}
-            >
-              <h3 className={styles.cardTitle}>{item.name}</h3>
-              <p
-                className={`${styles.cardPrice} ${
-                  item.change >= 0 ? styles.positive : styles.negative
-                }`}
-              >
-                {item.price.toLocaleString(undefined, {
-                  minimumFractionDigits: item.name.includes('黄金') || item.name.includes('国债') ? 2 : 2,
-                  maximumFractionDigits: item.name.includes('黄金') || item.name.includes('国债') ? 2 : 2,
-                })}
-              </p>
-              <span
-                className={`${styles.cardChange} ${
-                  item.change >= 0 ? styles.positive : styles.negative
-                }`}
-              >
-                {item.change >= 0 ? '+' : ''}{item.change.toFixed(2)}%
-              </span>
-            </div>
-          ))}
-        </div>
+        {loading && <p className={styles.loading}>加载中...</p>}
+        {error && <p className={styles.error}>{error}</p>}
 
-        {/* 背景装饰 */}
+        {!loading && !error && futuresItems.length === 0 && (
+          <p className={styles.empty}>暂无期货数据</p>
+        )}
+
+        {!loading && !error && futuresItems.length > 0 && (
+          <div className={styles.futuresList}>
+            {futuresItems.map((item, index) => (
+              <div
+                key={index}
+                className={styles.futuresCard}
+                style={{ '--index': index } as React.CSSProperties}
+              >
+                <span className={styles.futuresName}>{item.name}</span>
+                <span className={styles.futuresPrice}>
+                  {item.price.toFixed(2)}
+                </span>
+                <span
+                  className={`${styles.futuresChange} ${
+                    item.change.startsWith('+')
+                      ? styles.positive
+                      : item.change.startsWith('-')
+                      ? styles.negative
+                      : ''
+                  }`}
+                >
+                  {item.change}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className={styles.backgroundOrb}></div>
         <div className={styles.backgroundOrbRight}></div>
       </div>
