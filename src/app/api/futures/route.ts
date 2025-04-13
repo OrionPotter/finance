@@ -69,7 +69,7 @@ export async function GET() {
       const timeStr = `${date} ${time}`;
       try {
         formatInTimeZone(new Date(timeStr), 'Asia/Shanghai', 'yyyy-MM-dd HH:mm:ss');
-      } catch (e) {
+      } catch  {
         console.warn(`Invalid time format for ${symbol}: ${timeStr}`);
       }
 
@@ -91,15 +91,19 @@ export async function GET() {
     }
 
     return NextResponse.json(futures.slice(0, 8));
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as {
+      message?: string;
+      response?: {
+        data?: unknown;
+        status?: number;
+      };
+    };
+    
     console.error('Sina Futures API error:', {
-      message: error.message,
-      response: error.response?.data,
-      status: error.response?.status,
+      message: err.message,
+      response: err.response?.data,
+      status: err.response?.status,
     });
-    return NextResponse.json(
-      { error: '无法加载期货数据' },
-      { status: 500 }
-    );
   }
 }

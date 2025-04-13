@@ -23,11 +23,8 @@ export default function Futures() {
         const response = await axios.get<FuturesItem[]>('/api/futures');
         setFuturesItems(response.data);
         setError(null);
-      } catch (err: any) {
-        setError(
-          err.response?.data?.error || '无法加载期货数据，请稍后重试'
-        );
-        console.error('Fetch futures error:', err);
+      } catch  {
+        console.error('无法加载期货数据，请稍后重试');
       } finally {
         setLoading(false);
       }

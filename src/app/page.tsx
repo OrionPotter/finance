@@ -43,7 +43,7 @@ export default function Home() {
   ]);
 
   // 热门资讯（6条）
-  const [newsItems, setNewsItems] = useState([
+  const [newsItems] = useState([
     {
       title: '美联储加息预期升温，全球市场波动加剧',
       time: '2025-04-13 10:30',
@@ -71,7 +71,7 @@ export default function Home() {
   ]);
 
   // 金融日历（6条）
-  const [calendarEvents, setCalendarEvents] = useState([
+  const [calendarEvents] = useState([
     { time: '2025-04-13 14:00', event: '美国CPI数据发布' },
     { time: '2025-04-13 16:30', event: '苹果公司财报公布' },
     { time: '2025-04-13 20:00', event: '欧洲央行利率决议' },
