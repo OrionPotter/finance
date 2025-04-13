@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="zh-CN">
+    <html>
       <Navbar />
       <body>{children}</body>
     </html>

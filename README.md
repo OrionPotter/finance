@@ -1,36 +1,227 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 零X金融
 
-## Getting Started
+零X金融是一个现代化的财经网站，旨在为用户提供实时市场行情、最新金融资讯、经济日历和实用投资工具。项目采用 Next.js 开发，注重用户体验、可访问性和性能优化，适合个人投资者和金融爱好者。
 
-First, run the development server:
+## 项目概述
 
+零X金融提供以下核心功能：
+- **市场行情**：实时跟踪股票、指数、加密货币等资产价格，支持图表分析和搜索。
+- **热门资讯**：聚合全球金融新闻，支持分类浏览和用户互动。
+- **金融日历**：展示重要经济事件和财报，支持提醒和历史回顾。
+- **投资工具**：提供投资组合管理、技术分析、税务计算等实用功能。
+- **用户系统**：支持个性化设置和数据保存（计划中）。
+
+## 页面设计
+
+以下是零X金融的主要页面及其功能描述：
+
+### 1. 主页 (/)
+主页是用户的入口，展示核心内容，引导用户探索其他功能。
+
+- **功能**：
+  - **实时行情**：显示主要指数（如上证、纳斯达克）的价格、涨跌幅，支持动态更新。
+  - **热门资讯**：展示最新金融新闻（6 条），支持点击跳转详情。
+  - **金融日历**：列出近期经济事件（6 条），如 CPI 数据、财报发布。
+  - **功能导航**：提供市场、工具等快捷入口，卡片式布局。
+- **视觉设计**：
+  - 背景：渐变蓝色（`#f8faff` 至 `#e6f0ff`），搭配波浪装饰。
+  - 卡片：白色半透背景（`rgba(255, 255, 255, 0.95)`），圆角设计，悬停动画。
+  - 响应式：移动端调整为单列布局，优化间距。
+- **交互**：
+  - 骨架屏加载动画，提升感知速度。
+  - 卡片点击跳转对应页面，悬停显示微交互（如阴影增强）。
+- **技术实现**：
+  - 数据：模拟实时更新（`useState` + `setInterval`），未来接入 API。
+  - 组件：卡片网格（`grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))`）。
+  - 动画：CSS keyframes（`fadeIn`、`skeletonPulse`）。
+
+### 2. 导航栏 (全局)
+导航栏固定在页面顶部，提供全局导航功能。
+
+- **功能**：
+  - **Logo**：点击返回主页，渐变文字效果（`#007aff` 至 `#ff9500`）。
+  - **菜单**：包含“市场”、“资讯”、“日历”、“工具”四个链接。
+  - **移动端支持**：汉堡菜单切换显示导航列表。
+- **视觉设计**：
+  - 背景：半透白色（`rgba(255, 255, 255, 0.95)`），模糊效果（`backdrop-filter: blur(8px)`）。
+  - 链接：悬停显示橙色下划线动画（`#ff9500`）。
+  - 移动端：菜单展开为全屏垂直列表，带阴影。
+- **交互**：
+  - 菜单切换动画（`display: flex` 切换）。
+  - 链接悬停和点击反馈（颜色过渡、背景高亮）。
+- **技术实现**：
+  - 组件：React 函数组件（`useState` 控制菜单状态）。
+  - 样式：CSS 模块（`Navbar.module.css`），响应式媒体查询。
+
+### 3. 市场行情页面 (/market)
+市场页面专注于资产价格和趋势分析。
+
+- **功能**：
+  - **数据展示**：表格显示资产名称、价格、涨跌幅，支持排序。
+  - **图表分析**：K 线图或折线图，切换时间周期（1分钟、1小时、日线）。
+  - **搜索**：模糊搜索股票代码或名称，实时返回结果。
+  - **自选列表**：用户添加关注的资产，保存至本地或后端。
+- **视觉 design**：
+  - 布局：左侧筛选面板，右侧表格+图表区域。
+  - 配色：延续主页蓝色（`#007aff`）和橙色（`#ff9500`）主题。
+  - 移动端：筛选折叠为下拉菜单，表格转为卡片。
+- **交互**：
+  - 图表支持缩放和悬停显示详情。
+  - 搜索框防抖优化（`useDebounce`）。
+- **技术实现**：
+  - 数据：Alpha Vantage 或 CoinGecko API，WebSocket 实时更新。
+  - 图表：`Lightweight Charts` 或 `Chart.js`。
+  - 组件：表格（`react-table`）、搜索（自定义组件）。
+
+### 4. 资讯页面 (/news)
+资讯页面提供金融新闻和用户互动。
+
+- **功能**：
+  - **新闻列表**：按类型（宏观、公司动态）或市场分类，支持无限滚动。
+  - **头条**：展示重要新闻（大图+标题）。
+  - **互动**：评论、点赞、分享至社交媒体。
+- **视觉设计**：
+  - 头条：全宽卡片，图片渐变遮罩。
+  - 列表：网格布局（`minmax(280px, 1fr)`），卡片带时间标签。
+  - 移动端：单列列表，头条缩小。
+- **交互**：
+  - 无限滚动（`react-infinite-scroll-component`）。
+  - 评论区动态加载，点赞实时反馈。
+- **技术实现**：
+  - 数据：NewsAPI 或爬虫（合法合规）。
+  - 后端：Node.js API，MongoDB 存储评论。
+  - 实时：Server-Sent Events 推送突发新闻。
+
+### 5. 金融日历页面 (/calendar)
+日历页面帮助用户跟踪重要事件。
+
+- **功能**：
+  - **日历视图**：交互式日历，点击日期查看事件。
+  - **事件列表**：展示时间、事件描述，支持筛选（财报、经济数据）。
+  - **提醒**：用户设置浏览器通知或邮件提醒。
+- **视觉 design**：
+  - 日历：网格布局，当前日期高亮。
+  - 列表：卡片式，每条事件带蓝色标签（`#007aff`）。
+  - 移动端：日历切换为列表优先。
+- **交互**：
+  - 日历支持拖动切换月份。
+  - 提醒按钮点击后请求通知权限。
+- **技术实现**：
+  - 日历：`react-big-calendar`。
+  - 数据：自定义 API 或外部日历数据源。
+  - 通知：Web Push API。
+
+### 6. 工具页面 (/tools)
+工具页面提供多种投资辅助功能。
+
+- **功能**：
+  - **投资组合**：输入持仓，计算收益、风险（夏普比率）。
+  - **技术分析**：计算 MACD、RSI 等指标，结合图表。
+  - **税务计算**：支持不同市场税费计算。
+  - **数据导出**：导出分析结果为 CSV 或 PDF。
+- **视觉 design**：
+  - 卡片网格：每个工具带图标（`📊`、`🧾`），悬停显示箭头。
+  - 输入区域：表单布局，带即时验证。
+  - 移动端：卡片垂直排列，表单优化触摸。
+- **交互**：
+  - 实时计算结果更新（`useEffect`）。
+  - 导出按钮触发下载（`jsPDF`）。
+- **技术实现**：
+  - 组件：表单（`react-hook-form`）、图表（`Chart.js`）。
+  - 计算：自定义算法或开源库（如 `ta-lib`）。
+  - 导出：`PapaParse`（CSV）、`jsPDF`（PDF）。
+
+## 技术方案
+
+### 技术栈
+- **前端**：Next.js 14（React 18），TypeScript（可选）。
+- **样式**：CSS 模块，Tailwind CSS（可选增强）。
+- **状态管理**：React Hooks（`useState`、`useEffect`）。
+- **数据获取**：`fetch`、SWR（缓存）、WebSocket（实时）。
+- **后端**（计划）：Node.js（Express/Fastify），MongoDB/PostgreSQL。
+- **部署**：Vercel（推荐），支持静态生成和 SSR。
+
+### 数据源
+- **市场行情**：
+  - Alpha Vantage（股票/指数）。
+  - CoinGecko（加密货币）。
+  - WebSocket 实时更新（`Socket.IO`）。
+- **资讯**：
+  - NewsAPI 或合法爬虫。
+  - RSS 聚合（可选）。
+- **日历**：
+  - 自定义 API 或 Investing.com 数据。
+- **缓存**：Redis（后端）或 SWR（前端）。
+
+### 性能优化
+- **静态生成**：使用 `getStaticProps` 预渲染资讯和日历。
+- **按需加载**：`next/dynamic` 延迟加载图表和工具。
+- **图片优化**：Next.js `<Image>`，支持 WebP。
+- **虚拟化**：`react-window` 优化长列表（资讯、日历）。
+
+### 可访问性
+- **ARIA 标签**：为导航、表格、图表添加 `aria-label`、`role`。
+- **键盘导航**：支持 Tab 键和 Enter 键交互。
+- **对比度**：确保文本和背景符合 WCAG 标准。
+- **测试**：使用 Lighthouse 和 NVDA 验证。
+
+### 安全性
+- **输入验证**：`DOMPurify` 防止 XSS。
+- **API 保护**：速率限制（`express-rate-limit`）、环境变量（`.env`）。
+- **认证**（计划）：NextAuth.js 或 Clerk。
+
+### 开发工具
+- **测试**：Jest + React Testing Library（单元测试），Cypress（端到端）。
+- **格式化**：ESLint、Prettier。
+- **监控**：Sentry（错误追踪），Vercel Analytics（用户行为）。
+
+## 开发计划
+
+### 阶段 1：核心功能（1-2 个月）
+- 主页：完善实时行情、资讯、日历展示。
+- 市场页面：数据表格、图表、搜索。
+- 工具页面：投资组合、技术分析。
+- 技术：API 集成、WebSocket、静态生成。
+
+### 阶段 2：增强体验（2-3 个月）
+- 资讯页面：分类、评论、实时推送。
+- 日历页面：交互式日历、提醒。
+- 技术：用户系统、夜间模式、可访问性。
+
+### 阶段 3：扩展和运营（3-6 个月）
+- 工具：税务计算、数据导出。
+- 移动端：离线支持、推送通知。
+- 运营：订阅功能、内容自动化。
+
+## 安装和运行
+
+### 环境要求
+- Node.js >= 18
+- npm 或 yarn
+
+### 安装
 ```bash
+git clone https://github.com/orionpotter/finance.git
+cd finance
+npm install
+运行
+bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+访问 http://localhost:3000。
+构建
+bash
+npm run build
+npm run start
+贡献指南
+Fork 项目。
+创建特性分支（git checkout -b feature/new-tool）。
+提交代码（git commit -m "Add new tool"）。
+推送到远程（git push origin feature/new-tool）。
+提交 Pull Request。
+许可证
+MIT License
+联系方式
+问题反馈：GitHub Issues
+最后更新：2025年4月13日
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

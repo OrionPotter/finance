@@ -15,7 +15,7 @@ export default function Navbar() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          FinanceHub
+            零x金融
         </Link>
         <button
           className={styles.menuButton}
