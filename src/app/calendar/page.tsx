@@ -51,9 +51,8 @@ export default function FinanceCalendar() {
         setLoading(false);
       }
     };
-
     fetchCalendar();
-    const interval = setInterval(fetchCalendar, 60000); // 每分钟更新
+    const interval = setInterval(fetchCalendar, 6000000); // 每分钟更新
     return () => clearInterval(interval);
   }, [startDate, endDate]);
 

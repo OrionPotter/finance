@@ -78,7 +78,8 @@
   }
   
   .toggleButton:hover {
-    transform: scale(1.05);
+    background: linear-gradient(45deg, #007aff, #00c6ff); /* 显式声明保持渐变 */
+    color: #fff; /* 显式声明保持文字白色 */
   }
   
   .eventList {
